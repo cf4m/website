@@ -18,10 +18,6 @@ sidebar: auto
 
 [![Releases](https://img.shields.io/github/v/release/cf4m/cf4m?style=flat-square)](https://github.com/cf4m/cf4m/releases)
 
-### [Copy the source code to the project](https://github.com/cf4m/cf4m)
-
-[![GitHub](https://img.shields.io/github/stars/cf4m/cf4m?style=social)](https://github.com/cf4m/cf4m)
-
 ## Usage
 
 ### Instance
