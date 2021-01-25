@@ -26,7 +26,7 @@ allprojects {
 添加依赖项
 ```groovy
 dependencies {
-	implementation 'cn.enaium.cf4m:cf4m:latest'
+	implementation 'cn.enaium.cf4m:cf4m:最新版本'
 }
 ```
 
