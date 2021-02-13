@@ -60,7 +60,6 @@ CF4M内置了2个Event(KeyboardEvent,UpdateEvent)
 创建`Sprint`类.
 
 ```java
-@ModuleAT
 @Module(value = "Sprint", key = Keyboard.KEY_V, category = Category.MOVEMENT)
 public class Sprint {
     @Event
