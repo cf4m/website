@@ -9,7 +9,7 @@ features:
 - title: Easy
   details: No need to write Event,Module and Setting etc.
 - title: Small
-  details: Less than 30KB.
+  details: Less than 40KB.
 - title: Lightweight
   details: Only used Guava libraries (Minecraft comes with.
 footer: Apache License 2.0 | Copyright © 2020 Enaium

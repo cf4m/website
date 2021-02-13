@@ -2,26 +2,41 @@ module.exports = {
     title: 'CF4M',
     description: 'CF4M Doc',
     dest: '../docs',
+    locales: {
+        '/': {
+            lang: 'en-US',
+            title: 'CF4M',
+            description: 'Client Framework for Minecraft'
+        },
+        '/zh/': {
+            lang: 'zh-CN',
+            title: 'CF4M',
+            description: 'Minecraft客户端框架'
+        }
+    },
     themeConfig: {
-        nav: [
-            { text: 'Home', link: '/' },
-			{
-                text: 'Languages',
-                items: [
-                    { text: 'English', link: '/' },
-                    { text: 'Chinese', link: '/zh/' }
-                ],
+        sidebar: 'auto',
+        repo: 'cf4m/cf4m',
+        docsDir: 'docs',
+        editLinks: true,
+		smoothScroll: true,
+        locales: {
+            '/': {
+                label: 'English',
+                selectText: 'Languages',
+                ariaLabel: 'Select language',
+                editLinkText: 'Edit this page on GitHub',
+                lastUpdated: 'Last Updated',
+                nav: require('./nav/en')
             },
-            {
-                text: 'Video',
-                items: [
-                    { text: 'Youtube', link: 'https://www.youtube.com/watch?v=zhfln_BeGh8' },
-                    { text: 'BiliBili', link: 'https://www.bilibili.com/video/BV1qK41157gP' }
-                ],
-            },
-            {
-                text: 'GitHub', link: 'https://github.com/cf4m/cf4m',
+            '/zh/': {
+                label: '简体中文',
+                selectText: '选择语言',
+                ariaLabel: '选择语言',
+                editLinkText: '在 GitHub 上编辑此页',
+                lastUpdated: '上次更新',
+                nav: require('./nav/zh'),
             }
-        ]
+        }
     }
 }
