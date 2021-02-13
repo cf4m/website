@@ -83,6 +83,34 @@ public class Sprint {
     }
 ```
 
+#### 扩展
+
+为Module扩展变量
+
+```java
+@Expand
+public class Module {
+    @Value("tag")
+    String Haha;
+}
+```
+
+##### 使用
+
+```java
+@Event
+private void onUpdate(UpdateEvent updateEvent) {
+    CF4M.getInstance().module.setValue(this, "tag", "Auto");
+}
+```
+
+```java
+@Event
+private void onUpdate(UpdateEvent updateEvent) {
+    CF4M.getInstance().module.getValue(module, "tag");
+}
+```
+
 ::: tip
 `@Module`注解CF4M会自动为您添加
 :::
@@ -269,3 +297,7 @@ public class ExampleConfig implements IConfiguration {
     }
 }
 ```
+
+::: tip
+`@Configuration` annotation CF4M will automatically add for you
+:::

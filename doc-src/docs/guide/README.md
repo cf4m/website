@@ -83,6 +83,34 @@ public class Sprint {
     }
 ```
 
+#### Expand
+
+Expand variables for module
+
+```java
+@Expand
+public class Module {
+    @Value("tag")
+    String Haha;
+}
+```
+
+##### Usage
+
+```java
+@Event
+private void onUpdate(UpdateEvent updateEvent) {
+    CF4M.getInstance().module.setValue(this, "tag", "Auto");
+}
+```
+
+```java
+@Event
+private void onUpdate(UpdateEvent updateEvent) {
+    CF4M.getInstance().module.getValue(module, "tag");
+}
+```
+
 ::: tip
 `@Module` annotation CF4M will automatically add for you
 :::
@@ -269,3 +297,7 @@ public class ExampleConfig implements IConfiguration {
     }
 }
 ```
+
+::: tip
+`@Configuration` annotation CF4M will automatically add for you
+:::
