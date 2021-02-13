@@ -198,11 +198,7 @@ public class ModuleConfig {
                     if (jsonObject.get("enable").getAsBoolean()) {
                         CF4M.getInstance().module.enable(module);
                     }
-                    try {
-                        CF4M.getInstance().module.setKey(module, jsonObject.get("key").getAsInt());
-                    } catch (NoSuchFieldException | IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
+                    CF4M.getInstance().module.setKey(module, jsonObject.get("key").getAsInt());
                 }
             }
         }
