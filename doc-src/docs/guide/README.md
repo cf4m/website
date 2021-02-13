@@ -69,6 +69,10 @@ public class Sprint {
 }
 ```
 
+::: tip
+`@Module` annotation CF4M will automatically add for you
+:::
+
 #### Enable and Disable
 
 ```java
@@ -95,6 +99,10 @@ public class Module {
 }
 ```
 
+::: tip
+`@Expand` annotation CF4M will automatically add for you
+:::
+
 ##### Usage
 
 ```java
@@ -110,10 +118,6 @@ private void onUpdate(UpdateEvent updateEvent) {
     CF4M.getInstance().module.getValue(module, "tag");
 }
 ```
-
-::: tip
-`@Module` annotation CF4M will automatically add for you
-:::
 
 ### Setting
 

@@ -69,6 +69,10 @@ public class Sprint {
 }
 ```
 
+::: tip
+`@Module`注解CF4M会自动为您添加
+:::
+
 #### Enable和Disable
 
 ```java
@@ -95,6 +99,10 @@ public class Module {
 }
 ```
 
+::: tip
+`@Module`注解CF4M会自动为您添加
+:::
+
 ##### 使用
 
 ```java
@@ -110,10 +118,6 @@ private void onUpdate(UpdateEvent updateEvent) {
     CF4M.getInstance().module.getValue(module, "tag");
 }
 ```
-
-::: tip
-`@Module`注解CF4M会自动为您添加
-:::
 
 ### Setting
 
