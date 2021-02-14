@@ -15,7 +15,3 @@ echo 'cf4m.enaium.cn' > CNAME
 git init
 git add -A
 git commit -m 'deploy'
-
-git push -f git@github.com:cf4m/website.git master
-
-cd -
