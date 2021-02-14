@@ -19,7 +19,7 @@ Add it in your root build.gradle at the end of repositories
 ```groovy
 allprojects {
 	repositories {
-		maven { url 'https://cf4m.github.io/maven' }
+		maven { url 'https://maven.enaium.cn' }
 	}
 }
 ```
@@ -30,4 +30,4 @@ dependencies {
 }
 ```
 
-LATEST=[![Maven URL](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Fcf4m.github.io%2Fmaven%2Fcn%2Fenaium%2Fcf4m%2Fcf4m%2Fmaven-metadata.xml&style=flat-square)](https://cf4m.github.io/maven)
+LATEST=[![Maven URL](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Fmaven.enaium.cn%2Fcn%2Fenaium%2Fcf4m%2Fcf4m%2Fmaven-metadata.xml&style=flat-square)](https://maven.enaium.cn)
