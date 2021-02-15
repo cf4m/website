@@ -303,5 +303,5 @@ public class ExampleConfig implements IConfiguration {
 ```
 
 ::: tip
-`@Configuration` annotation CF4M will automatically add for you
+`@Configuration`注解CF4M会自动为您添加
 :::
