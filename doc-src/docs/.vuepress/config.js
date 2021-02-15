@@ -17,7 +17,7 @@ module.exports = {
     themeConfig: {
         sidebar: 'auto',
         repo: 'cf4m/website',
-        docsDir: 'doc-src',
+        docsDir: 'doc-src/docs',
         editLinks: true,
 		smoothScroll: true,
         locales: {

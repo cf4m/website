@@ -6,7 +6,7 @@ sidebar: auto
 
 ## 安装
 
-### [CF4M Maven](https://cf4m.github.io/maven)
+### [CF4M Maven](https://maven.enaium.cn)
 
 [![Maven URL](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Fmaven.enaium.cn%2Fcn%2Fenaium%2Fcf4m%2Fcf4m%2Fmaven-metadata.xml&style=flat-square)](https://maven.enaium.cn)
 
