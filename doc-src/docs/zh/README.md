@@ -36,7 +36,7 @@ dependencies {
 
 ```groovy
 dependencies {
-	modImplementation 'cn.enaium.cf4m:cf4m:至少版本'
+	modImplementation 'cn.enaium.cf4m:cf4m-fabric:至少版本'
 }
 ```
 

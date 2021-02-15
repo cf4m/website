@@ -35,7 +35,7 @@ LATEST=[![Maven URL](https://img.shields.io/maven-metadata/v?metadataUrl=https%3
 
 ```groovy
 dependencies {
-	modImplementation 'cn.enaium.cf4m:cf4m:LEAST'
+	modImplementation 'cn.enaium.cf4m:cf4m-fabric:LEAST'
 }
 ```
 
