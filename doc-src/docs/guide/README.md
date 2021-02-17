@@ -43,7 +43,7 @@ public enum Example {
 
 Use `Start` and `Stop` in game Start and Stop.
 
-`Example.INSTANCE.start();` ``Example.INSTANCE.start();`
+`Example.INSTANCE.start();` `Example.INSTANCE.start();`
 
 
 ### Event
