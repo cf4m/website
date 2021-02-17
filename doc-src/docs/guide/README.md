@@ -41,9 +41,9 @@ public enum Example {
 
 ### Start and Stop
 
-Use `Start` and `Stop` in game Start and Stop.
+Use `Run` and `Stop` in game Run and Stop.
 
-`Example.INSTANCE.start();` `Example.INSTANCE.start();`
+`Example.INSTANCE.run();` `Example.INSTANCE.stop();`
 
 
 ### Event

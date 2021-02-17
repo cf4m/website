@@ -41,9 +41,9 @@ public enum Example {
 
 ### Start and Stop
 
-在游戏启动和停止时使用`Start`和`Stop`.
+在游戏运行和停止时使用`Run`和`Stop`.
 
-`Example.INSTANCE.start();` `Example.INSTANCE.start();`
+`Example.INSTANCE.run();` `Example.INSTANCE.stop();`
 
 
 ### Event
