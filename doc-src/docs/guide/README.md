@@ -27,10 +27,15 @@ Create the main class.
 ```java
 public enum Example {
 
-    instance;
+    INSTANCE;
 
-    public CF4M cf4M = new CF4M(this, Minecraft.getMinecraft().mcDataDir.toString() + "/Example");
+    public void run() {
+        CF4M.INSTANCE.run(this, Minecraft.getMinecraft().mcDataDir.toString() + "/" + name);
+    }
 
+    public void stop() {
+        CF4M.INSTANCE.stop();
+    }
 }
 ```
 
@@ -87,12 +92,12 @@ public class Sprint {
     }
 ```
 
-#### Expand
+#### Extend
 
-Expand variables for module
+Extend variables for module
 
 ```java
-@Expand
+@Extend
 public class Module {
     @Value("tag")
     String Haha;
@@ -100,22 +105,20 @@ public class Module {
 ```
 
 ::: tip
-`@Expand` annotation CF4M will automatically add for you
+`@Extend` annotation CF4M will automatically add for you
 :::
-
-##### Usage
 
 ```java
 @Event
 private void onUpdate(UpdateEvent updateEvent) {
-    CF4M.getInstance().module.setValue(this, "tag", "Auto");
+    CF4M.INSTANCE.module.setValue(this, "tag", "Auto");
 }
 ```
 
 ```java
 @Event
 private void onUpdate(UpdateEvent updateEvent) {
-    CF4M.getInstance().module.getValue(module, "tag");
+    CF4M.INSTANCE.module.getValue(module, "tag");
 }
 ```
 
@@ -125,22 +128,16 @@ private void onUpdate(UpdateEvent updateEvent) {
 @Module(value = "Sprint", key = Keyboard.KEY_V, category = Category.MOVEMENT)
 public class Sprint {
 
-    @Setting
     private EnableSetting test1 = new EnableSetting(this, "test1", "test1", false);
 
-    @Setting
     private IntegerSetting test2 = new IntegerSetting(this, "test1", "test1", 1, 1, 1);
 
-    @Setting
     private FloatSetting test3 = new FloatSetting(this, "test1", "test1", 1.0F, 1.0F, 1.0F);
 
-    @Setting
     private DoubleSetting test4 = new DoubleSetting(this, "test1", "test1", 1.0D, 1.0D, 1.0D);
 
-    @Setting
     private LongSetting test5 = new LongSetting(this, "test1", "test1", 1L, 1L, 1L);
 
-    @Setting
     private ModeSetting test6 = new ModeSetting(this, "test1", "test1", "Mode1", Arrays.asList("Mode1", "Mode2"));
 
     @Event
@@ -151,7 +148,7 @@ public class Sprint {
 ```
 
 ::: tip
-`@Setting` annotation CF4M will automatically add for you
+You don’t need to do anything to make `Setting` add
 :::
 
 ### Command
@@ -167,9 +164,9 @@ prefix: `
 public class HelpCommand implements ICommand {
     @Override
     public boolean run(String[] args) {
-        CF4M.getInstance().configuration.message("Here are the list of commands:");
+        CF4M.INSTANCE.configuration.message("Here are the list of commands:");
         for (Map.Entry<String[], ICommand> entry : Example.instance.cf4M.command.getCommands().entrySet()) {
-            CF4M.getInstance().configuration.message(Arrays.toString(entry.getKey()));
+            CF4M.INSTANCE.configuration.message(Arrays.toString(entry.getKey()));
         }
         return true;
     }
@@ -186,14 +183,14 @@ public class HelpCommand implements ICommand {
 public class EnableCommand implements ICommand {
     public boolean run(String[] args) {
         if (args.length == 2) {
-            Object module = CF4M.getInstance().module.getModule(args[1]);
+            Object module = CF4M.INSTANCE.module.getModule(args[1]);
 
             if (module == null) {
-                CF4M.getInstance().configuration.message("The module with the name " + args[1] + " does not exist.");
+                CF4M.INSTANCE.configuration.message("The module with the name " + args[1] + " does not exist.");
                 return true;
             }
 
-            CF4M.getInstance().module.enable(module);
+            CF4M.INSTANCE.module.enable(module);
             return true;
         }
         return false;
@@ -217,20 +214,20 @@ public class EnableCommand implements ICommand {
 public class ModuleConfig {
     @Load
     public void load() {
-        for (Object module : CF4M.getInstance().module.getModules()) {
+        for (Object module : CF4M.INSTANCE.module.getModules()) {
             JsonArray jsonArray = new JsonArray();
             try {
-                jsonArray = new Gson().fromJson(read(CF4M.getInstance().config.getPath(this)), JsonArray.class);
+                jsonArray = new Gson().fromJson(read(CF4M.INSTANCE.config.getPath(this)), JsonArray.class);
             } catch (IOException e) {
                 System.out.println(e.getLocalizedMessage());
             }
             for (JsonElement jsonElement : jsonArray) {
                 JsonObject jsonObject = jsonElement.getAsJsonObject();
-                if (CF4M.getInstance().module.getName(module).equals(new Gson().fromJson(jsonObject, JsonObject.class).get("name").getAsString())) {
+                if (CF4M.INSTANCE.module.getName(module).equals(new Gson().fromJson(jsonObject, JsonObject.class).get("name").getAsString())) {
                     if (jsonObject.get("enable").getAsBoolean()) {
-                        CF4M.getInstance().module.enable(module);
+                        CF4M.INSTANCE.module.enable(module);
                     }
-                    CF4M.getInstance().module.setKey(module, jsonObject.get("key").getAsInt());
+                    CF4M.INSTANCE.module.setKey(module, jsonObject.get("key").getAsInt());
                 }
             }
         }
@@ -239,15 +236,15 @@ public class ModuleConfig {
     @Save
     public void save() {
         JsonArray jsonArray = new JsonArray();
-        for (Object module : CF4M.getInstance().module.getModules()) {
+        for (Object module : CF4M.INSTANCE.module.getModules()) {
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("name", CF4M.getInstance().module.getName(module));
-            jsonObject.addProperty("enable", CF4M.getInstance().module.isEnable(module));
-            jsonObject.addProperty("key", CF4M.getInstance().module.getKey(module));
+            jsonObject.addProperty("name", CF4M.INSTANCE.module.getName(module));
+            jsonObject.addProperty("enable", CF4M.INSTANCE.module.isEnable(module));
+            jsonObject.addProperty("key", CF4M.INSTANCE.module.getKey(module));
             jsonArray.add(jsonObject);
         }
         try {
-            write(CF4M.getInstance().config.getPath(this), new Gson().toJson(jsonArray));
+            write(CF4M.INSTANCE.config.getPath(this), new Gson().toJson(jsonArray));
         } catch (IOException e) {
             e.printStackTrace();
         }
