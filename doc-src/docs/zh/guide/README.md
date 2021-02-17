@@ -43,7 +43,7 @@ public enum Example {
 
 在游戏启动和停止时使用`Start`和`Stop`.
 
-`Example.instance.cf4M.start();` `Example.instance.cf4M.start();`
+``Example.INSTANCE.start();` ``Example.INSTANCE.start();`
 
 
 ### Event
@@ -154,7 +154,7 @@ public class Sprint {
 ### Command
 
 ::: warning
-您需要在游戏的`sendChatMessage`方法下使用`Example.instance.cf4M.commandManager.isCommand(message)`
+您需要在游戏的`sendChatMessage`方法下使用`CF4M.INSTANCE.command.isCommand(message)`
 :::
 
 prefix: `
@@ -165,7 +165,7 @@ public class HelpCommand implements ICommand {
     @Override
     public boolean run(String[] args) {
         CF4M.INSTANCE.configuration.message("Here are the list of commands:");
-        for (Map.Entry<String[], ICommand> entry : Example.instance.cf4M.command.getCommands().entrySet()) {
+        for (Map.Entry<String[], ICommand> entry : CF4M.INSTANCE.command.getCommands().entrySet()) {
             CF4M.INSTANCE.configuration.message(Arrays.toString(entry.getKey()));
         }
         return true;
@@ -281,8 +281,7 @@ public class ExampleConfig implements IConfiguration {
 public class ExampleConfig implements IConfiguration {
     @Override
     public void message(String message) {
-        Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(
-                ChatFormatting.WHITE + "[" + ChatFormatting.RED + Example.instance.name + ChatFormatting.WHITE + "] " + message));
+        Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(message));
     }
 }
 ```

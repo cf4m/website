@@ -43,7 +43,7 @@ public enum Example {
 
 Use `Start` and `Stop` in game Start and Stop.
 
-`Example.instance.cf4M.start();` `Example.instance.cf4M.start();`
+`Example.INSTANCE.start();` ``Example.INSTANCE.start();`
 
 
 ### Event
@@ -154,7 +154,7 @@ You don’t need to do anything to make `Setting` add
 ### Command
 
 ::: warning
-You need to use `Example.instance.cf4M.commandManager.isCommand(message)` in the `sendChatMessage` method of the game
+You need to use `CF4M.INSTANCE.command.isCommand(message)` in the `sendChatMessage` method of the game
 :::
 
 prefix: `
@@ -165,7 +165,7 @@ public class HelpCommand implements ICommand {
     @Override
     public boolean run(String[] args) {
         CF4M.INSTANCE.configuration.message("Here are the list of commands:");
-        for (Map.Entry<String[], ICommand> entry : Example.instance.cf4M.command.getCommands().entrySet()) {
+        for (Map.Entry<String[], ICommand> entry : CF4M.INSTANCE.command.getCommands().entrySet()) {
             CF4M.INSTANCE.configuration.message(Arrays.toString(entry.getKey()));
         }
         return true;
@@ -281,8 +281,7 @@ public class ExampleConfig implements IConfiguration {
 public class ExampleConfig implements IConfiguration {
     @Override
     public void message(String message) {
-        Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(
-                ChatFormatting.WHITE + "[" + ChatFormatting.RED + Example.instance.name + ChatFormatting.WHITE + "] " + message));
+        Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(message));
     }
 }
 ```
