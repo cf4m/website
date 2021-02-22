@@ -32,18 +32,14 @@ public enum Example {
     public void run() {
         CF4M.INSTANCE.run(this, Minecraft.getMinecraft().mcDataDir.toString() + "/" + name);
     }
-
-    public void stop() {
-        CF4M.INSTANCE.stop();
-    }
 }
 ```
 
-### Start and Stop
+### Start
 
-在游戏运行和停止时使用`Run`和`Stop`.
+在游戏运行和停止时使用`Run`.
 
-`Example.INSTANCE.run();` `Example.INSTANCE.stop();`
+`Example.INSTANCE.run();`
 
 
 ### Event
@@ -53,7 +49,7 @@ CF4M内置了2个Event(KeyboardEvent,UpdateEvent)
 :::
 
 ::: warning 
-您必须`new KeyboardEvent(keyCode).call();` `new UpdateEvent().call();` 才能使用
+您必须`new KeyboardEvent(key).call();` `new UpdateEvent().call();` 才能使用
 :::
 
 ### Module

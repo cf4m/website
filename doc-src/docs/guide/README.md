@@ -32,18 +32,14 @@ public enum Example {
     public void run() {
         CF4M.INSTANCE.run(this, Minecraft.getMinecraft().mcDataDir.toString() + "/" + name);
     }
-
-    public void stop() {
-        CF4M.INSTANCE.stop();
-    }
 }
 ```
 
-### Start and Stop
+### Start
 
-Use `Run` and `Stop` in game Run and Stop.
+Use `Run` in game Run.
 
-`Example.INSTANCE.run();` `Example.INSTANCE.stop();`
+`Example.INSTANCE.run();`
 
 
 ### Event
@@ -53,7 +49,7 @@ Use `Run` and `Stop` in game Run and Stop.
 :::
 
 ::: warning 
-You must `new KeyboardEvent(keyCode).call();` `new UpdateEvent().call();` can be used
+You must `new KeyboardEvent(key).call();` `new UpdateEvent().call();` can be used
 :::
 
 ### Module
