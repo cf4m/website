@@ -30,7 +30,8 @@ public enum Example {
     INSTANCE;
 
     public void run() {
-        CF4M.INSTANCE.run(this, Minecraft.getMinecraft().mcDataDir.toString() + "/" + name);
+        CF4M.INSTANCE.run(this);
+        // CF4M.INSTANCE.run(this, Minecraft.getMinecraft().mcDataDir.toString() + "/" + name);
     }
 }
 ```
@@ -62,6 +63,7 @@ Create the `Sprint` class.
 
 ```java
 @Module(value = "Sprint", key = Keyboard.KEY_V, category = Category.MOVEMENT)
+//@Module("Sprint")
 public class Sprint {
     @Event
     private void onUpdate(UpdateEvent updateEvent) {
@@ -124,17 +126,11 @@ private void onUpdate(UpdateEvent updateEvent) {
 @Module(value = "Sprint", key = Keyboard.KEY_V, category = Category.MOVEMENT)
 public class Sprint {
 
-    private EnableSetting test1 = new EnableSetting(this, "test1", "test1", false);
+    @Setting(value = "test1", description = "description")
+    private EnableSetting test1 = new EnableSetting(false);
 
-    private IntegerSetting test2 = new IntegerSetting(this, "test1", "test1", 1, 1, 1);
-
-    private FloatSetting test3 = new FloatSetting(this, "test1", "test1", 1.0F, 1.0F, 1.0F);
-
-    private DoubleSetting test4 = new DoubleSetting(this, "test1", "test1", 1.0D, 1.0D, 1.0D);
-
-    private LongSetting test5 = new LongSetting(this, "test1", "test1", 1L, 1L, 1L);
-
-    private ModeSetting test6 = new ModeSetting(this, "test1", "test1", "Mode1", Arrays.asList("Mode1", "Mode2"));
+    @Setting("test2")
+    private IntegerSetting test2 = new IntegerSetting(1, 1, 1);
 
     @Event
     private void onUpdate(UpdateEvent updateEvent) {
@@ -143,8 +139,68 @@ public class Sprint {
 }
 ```
 
+#### custom Setting
+
+```java
+public class EnableSetting {
+
+    private boolean enable;
+
+    public EnableSetting(boolean enable) {
+        this.enable = enable;
+    }
+
+    public boolean getEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
+}
+```
+
+```java
+public class IntegerSetting {
+
+    private Integer current;
+    private Integer min;
+    private Integer max;
+
+    public IntegerSetting(Integer current, Integer min, Integer max) {
+        this.current = current;
+        this.min = min;
+        this.max = max;
+    }
+
+    public Integer getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Integer current) {
+        this.current = current;
+    }
+
+    public Integer getMin() {
+        return min;
+    }
+
+    public void setMin(Integer min) {
+        this.min = min;
+    }
+
+    public Integer getMax() {
+        return max;
+    }
+
+    public void setMax(Integer max) {
+        this.max = max;
+    }
+}
+```
+
 ::: tip
-You don’t need to do anything to make `Setting` add
+`@Setting` annotation CF4M will automatically add for you
 :::
 
 ### Command
