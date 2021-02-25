@@ -46,11 +46,13 @@ Use `Run` in game Run.
 ### Event
 
 ::: tip
-2 events are built into CF4M (KeyboardEvent,UpdateEvent)
+2 events are built into CF4M (KeyboardEvent,UpdateEvent).
 :::
 
 ::: warning 
-You must `new KeyboardEvent(key).call();` `new UpdateEvent().call();` can be used
+You must `new KeyboardEvent(key).call();` `new UpdateEvent().call();` can be used.
+
+You don't need to use `UpdateEvent`, but you must use `KeyboardEvent`. 
 :::
 
 ### Module
@@ -79,15 +81,15 @@ public class Sprint {
 #### Enable and Disable
 
 ```java
-    @Enable
-    public void onEnable() {
-        System.out.println("onEnable");
-    }
+@Enable
+public void onEnable() {
+    System.out.println("onEnable");
+}
 
-    @Disable
-    public void onDisable() {
-        System.out.println("onDisable");
-    }
+@Disable
+public void onDisable() {
+    System.out.println("onDisable");
+}
 ```
 
 #### Extend

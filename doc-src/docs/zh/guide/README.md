@@ -46,11 +46,13 @@ public enum Example {
 ### Event
 
 ::: tip
-CF4M内置了2个Event(KeyboardEvent,UpdateEvent)
+CF4M内置了2个Event(KeyboardEvent,UpdateEvent).
 :::
 
 ::: warning 
-您必须`new KeyboardEvent(key).call();` `new UpdateEvent().call();` 才能使用
+您必须`new KeyboardEvent(key).call();` `new UpdateEvent().call();` 才能使用.
+
+您可以不使用`UpdateEvent`,但是必须使用`KeyboardEvent`.
 :::
 
 ### Module
@@ -79,15 +81,15 @@ public class Sprint {
 #### Enable和Disable
 
 ```java
-    @Enable
-    public void onEnable() {
-        System.out.println("onEnable");
-    }
+@Enable
+public void onEnable() {
+    System.out.println("onEnable");
+}
 
-    @Disable
-    public void onDisable() {
-        System.out.println("onDisable");
-    }
+@Disable
+public void onDisable() {
+    System.out.println("onDisable");
+}
 ```
 
 #### 扩展
