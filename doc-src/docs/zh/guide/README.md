@@ -38,7 +38,7 @@ public enum Example {
 
 ### Start
 
-在游戏运行和停止时使用`Run`.
+在游戏运行时使用`Run`.
 
 `Example.INSTANCE.run();`
 
