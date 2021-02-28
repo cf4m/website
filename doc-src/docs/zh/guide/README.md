@@ -214,45 +214,17 @@ public class IntegerSetting {
 prefix: `
 
 ```java
-@Command({"h", "help"})
-public class HelpCommand implements ICommand {
-    @Override
-    public boolean run(String[] args) {
-        CF4M.INSTANCE.configuration.message("Here are the list of commands:");
-        for (Map.Entry<String[], ICommand> entry : CF4M.INSTANCE.command.getCommands().entrySet()) {
-            CF4M.INSTANCE.configuration.message(Arrays.toString(entry.getKey()));
-        }
-        return true;
-    }
-
-    @Override
-    public String usage() {
-        return "help";
-    }
-}
-```
-
-```java
 @Command({"e", "enable"})
-public class EnableCommand implements ICommand {
-    public boolean run(String[] args) {
-        if (args.length == 2) {
-            Object module = CF4M.INSTANCE.module.getModule(args[1]);
+public class EnableCommand {
+    @Exec
+    private void exec(@Param("module") String name) {
+        Object module = CF4M.INSTANCE.module.getModule(name);
 
-            if (module == null) {
-                CF4M.INSTANCE.configuration.message("The module with the name " + args[1] + " does not exist.");
-                return true;
-            }
-
-            CF4M.INSTANCE.module.enable(module);
-            return true;
+        if (module == null) {
+            CF4M.INSTANCE.configuration.message("The module with the name " + name + " does not exist.");
         }
-        return false;
-    }
 
-    @Override
-    public String usage() {
-        return "<module>";
+        CF4M.INSTANCE.module.enable(module);
     }
 }
 ```
