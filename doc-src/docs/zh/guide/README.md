@@ -306,8 +306,13 @@ public class ExampleConfig implements IConfiguration {
 @Configuration
 public class ExampleConfig implements IConfiguration {
     @Override
-    public void message(String message) {
-        Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(message));
+    public ICommandConfiguration command() {
+        return new ICommandConfiguration() {
+            @Override
+            public void message(String message) {
+                Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(message));
+            }
+        };
     }
 }
 ```
@@ -318,8 +323,52 @@ public class ExampleConfig implements IConfiguration {
 @Configuration
 public class ExampleConfig implements IConfiguration {
     @Override
-    public String prefix() {
-        return "-";
+    public ICommandConfiguration command() {
+        return new ICommandConfiguration() {
+            @Override
+            public String prefix() {
+                return "-";
+            }
+        };
+    }
+}
+```
+
+### 启用和禁用
+
+```java
+@Configuration
+public class ExampleConfig implements IConfiguration {
+    @Override
+    public IModuleConfiguration module() {
+        return new IModuleConfiguration() {
+            @Override
+            public void enable(Object module) {
+
+            }
+
+            @Override
+            public void disable(Object module) {
+
+            }
+        };
+    }
+}
+```
+
+### 配置
+
+```java
+@Configuration
+public class ExampleConfig implements IConfiguration {
+    @Override
+    public IConfigConfiguration config() {
+        return new IConfigConfiguration() {
+            @Override
+            public boolean enable() {
+                return false;
+            }
+        };
     }
 }
 ```
