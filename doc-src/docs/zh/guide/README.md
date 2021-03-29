@@ -30,8 +30,8 @@ public enum Example {
     INSTANCE;
 
     public void run() {
-        CF4M.INSTANCE.run(this);
-        // CF4M.INSTANCE.run(this, Minecraft.getMinecraft().mcDataDir.toString() + "/" + name);
+        CF4M.run(this);
+        // CF4M.run(this, Minecraft.getMinecraft().mcDataDir.toString() + "/" + name);
     }
 }
 ```
@@ -45,21 +45,26 @@ public enum Example {
 
 ### Event
 
-::: tip
-CF4M内置了2个Event(KeyboardEvent,UpdateEvent).
-:::
+```java
+public class Events {
+    public static class UpdateEvent extends Listener {
+    }
 
-::: warning 
-您必须`new KeyboardEvent(key).call();` `new UpdateEvent().call();` 才能使用.
+    public static class Render2DEvent extends Listener {
+    }
+}
+```
 
-您可以不使用`UpdateEvent`,但是必须使用`KeyboardEvent`.
+::: warning
+必须和主类在同级包下
 :::
 
 ### Module
 
 ::: warning
-必须和主类在同级包下
+您必须使用`CF4M.module.onKey(key);` 才可以使用快捷键
 :::
+
 
 创建`Sprint`类.
 
@@ -97,10 +102,15 @@ public void onDisable() {
 为Module扩展变量
 
 ```java
-@Expand
-public class Module {
-    @Value("tag")
-    String Haha;
+@Extend
+public class ModuleExtend {
+    public String tag;
+    public int age;
+    public Action fun;
+
+    public interface Action {
+        void on();
+    }
 }
 ```
 
@@ -109,17 +119,23 @@ public class Module {
 :::
 
 ```java
-@Event
-private void onUpdate(UpdateEvent updateEvent) {
-    CF4M.INSTANCE.module.setValue(this, "tag", "Auto");
-}
-```
+    private ModuleExtend moduleExtend;
 
-```java
-@Event
-private void onUpdate(UpdateEvent updateEvent) {
-    CF4M.INSTANCE.module.getValue(module, "tag");
-}
+    @Enable
+    public void enable() {
+        moduleExtend = CF4M.module.getByInstance(this).getExtend();
+        moduleExtend.tag = "tag1";
+        moduleExtend.age = 1;
+        moduleExtend.fun = () -> System.out.println("FUN1");
+    }
+
+    @Disable
+    public void disable() {
+        System.out.println(moduleExtend);
+        System.out.println(moduleExtend.tag);
+        System.out.println(moduleExtend.age);
+        moduleExtend.fun.on();
+    }
 ```
 
 ### Setting
@@ -208,7 +224,7 @@ public class IntegerSetting {
 ### Command
 
 ::: warning
-您需要在游戏的`sendChatMessage`方法下使用`CF4M.INSTANCE.command.isCommand(message)`
+您需要在游戏的`sendChatMessage`方法下使用`CF4M.command.execCommand(message)`
 :::
 
 prefix: `
@@ -218,13 +234,14 @@ prefix: `
 public class EnableCommand {
     @Exec
     private void exec(@Param("module") String name) {
-        Object module = CF4M.INSTANCE.module.getModule(name);
+        ModuleProvider module = CF4M.module.getByName(name);
 
         if (module == null) {
-            CF4M.INSTANCE.configuration.message("The module with the name " + name + " does not exist.");
+            CF4M.configuration.command().message("The module with the name " + name + " does not exist.");
+            return;
         }
 
-        CF4M.INSTANCE.module.enable(module);
+        module.enable();
     }
 }
 ```
@@ -236,24 +253,24 @@ public class EnableCommand {
 ### Config
 
 ```java
-@Config("Modules")
+@Config("Module")
 public class ModuleConfig {
     @Load
     public void load() {
-        for (Object module : CF4M.INSTANCE.module.getModules()) {
+        for (ModuleProvider module : CF4M.module.getAll()) {
             JsonArray jsonArray = new JsonArray();
             try {
-                jsonArray = new Gson().fromJson(read(CF4M.INSTANCE.config.getPath(this)), JsonArray.class);
+                jsonArray = new Gson().fromJson(read(CF4M.config.getByInstance(this).getPath()), JsonArray.class);
             } catch (IOException e) {
-                System.out.println(e.getLocalizedMessage());
+                e.printStackTrace();
             }
             for (JsonElement jsonElement : jsonArray) {
                 JsonObject jsonObject = jsonElement.getAsJsonObject();
-                if (CF4M.INSTANCE.module.getName(module).equals(new Gson().fromJson(jsonObject, JsonObject.class).get("name").getAsString())) {
+                if (module.getName().equals(new Gson().fromJson(jsonObject, JsonObject.class).get("name").getAsString())) {
                     if (jsonObject.get("enable").getAsBoolean()) {
-                        CF4M.INSTANCE.module.enable(module);
+                        module.enable();
                     }
-                    CF4M.INSTANCE.module.setKey(module, jsonObject.get("key").getAsInt());
+                    module.setKey(jsonObject.get("key").getAsInt());
                 }
             }
         }
@@ -262,15 +279,15 @@ public class ModuleConfig {
     @Save
     public void save() {
         JsonArray jsonArray = new JsonArray();
-        for (Object module : CF4M.INSTANCE.module.getModules()) {
+        for (ModuleProvider module : CF4M.module.getAll()) {
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("name", CF4M.INSTANCE.module.getName(module));
-            jsonObject.addProperty("enable", CF4M.INSTANCE.module.isEnable(module));
-            jsonObject.addProperty("key", CF4M.INSTANCE.module.getKey(module));
+            jsonObject.addProperty("name", module.getName());
+            jsonObject.addProperty("enable", module.getEnable());
+            jsonObject.addProperty("key", module.getKey());
             jsonArray.add(jsonObject);
         }
         try {
-            write(CF4M.INSTANCE.config.getPath(this), new Gson().toJson(jsonArray));
+            write(CF4M.config.getByInstance(this).getPath(), new Gson().toJson(jsonArray));
         } catch (IOException e) {
             e.printStackTrace();
         }
