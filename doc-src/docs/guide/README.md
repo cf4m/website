@@ -56,7 +56,7 @@ public class Events {
 ```
 
 ::: warning
-You must use `CF4M.module.onKey(key);` to use keyboard
+Must be in the same package as the main class 
 :::
 
 ### Module
