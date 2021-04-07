@@ -62,7 +62,7 @@ Must be in the same package as the main class
 ### Module
 
 ::: warning
-您必须使用`CF4M.module.onKey(key);` 才可以使用快捷键
+You must use `CF4M.module.onKey(key);` to use keyboard
 :::
 
 
