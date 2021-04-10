@@ -62,14 +62,14 @@ public class Events {
 ### Module
 
 ::: warning
-您必须使用`CF4M.module.onKey(key);` 才可以使用快捷键
+您必须使用`CF4M.INSTANCE.getModule().onKey(key);` 才可以使用快捷键
 :::
 
 
 创建`Sprint`类.
 
 ```java
-@Module(value = "Sprint", key = Keyboard.KEY_V, category = Category.MOVEMENT)
+@Module(value = "Sprint", key = Keyboard.KEY_V, category = "MOVEMENT")
 //@Module("Sprint")
 public class Sprint {
     @Event
@@ -123,7 +123,7 @@ public class ModuleExtend {
 
     @Enable
     public void enable() {
-        moduleExtend = CF4M.module.getByInstance(this).getExtend();
+        moduleExtend = CF4M.INSTANCE.getModule().getByInstance(this).getExtend();
         moduleExtend.tag = "tag1";
         moduleExtend.age = 1;
         moduleExtend.fun = () -> System.out.println("FUN1");
@@ -224,7 +224,7 @@ public class IntegerSetting {
 ### Command
 
 ::: warning
-您需要在游戏的`sendChatMessage`方法下使用`CF4M.command.execCommand(message)`
+您需要在游戏的`sendChatMessage`方法下使用`CF4M.INSTANCE.getCommand().execCommand(message)`
 :::
 
 prefix: `
@@ -234,7 +234,7 @@ prefix: `
 public class EnableCommand {
     @Exec
     private void exec(@Param("module") String name) {
-        ModuleProvider module = CF4M.module.getByName(name);
+        ModuleProvider module = CF4M.INSTANCE.getModule().getByName(name);
 
         if (module == null) {
             CF4M.configuration.command().message("The module with the name " + name + " does not exist.");
@@ -257,10 +257,10 @@ public class EnableCommand {
 public class ModuleConfig {
     @Load
     public void load() {
-        for (ModuleProvider module : CF4M.module.getAll()) {
+        for (ModuleProvider module : CF4M.INSTANCE.getModule().getAll()) {
             JsonArray jsonArray = new JsonArray();
             try {
-                jsonArray = new Gson().fromJson(read(CF4M.config.getByInstance(this).getPath()), JsonArray.class);
+                jsonArray = new Gson().fromJson(read(CF4M.INSTANCE.getConfig().getByInstance(this).getPath()), JsonArray.class);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -279,7 +279,7 @@ public class ModuleConfig {
     @Save
     public void save() {
         JsonArray jsonArray = new JsonArray();
-        for (ModuleProvider module : CF4M.module.getAll()) {
+        for (ModuleProvider module : CF4M.INSTANCE.getModule().getAll()) {
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("name", module.getName());
             jsonObject.addProperty("enable", module.getEnable());
@@ -287,7 +287,7 @@ public class ModuleConfig {
             jsonArray.add(jsonObject);
         }
         try {
-            write(CF4M.config.getByInstance(this).getPath(), new Gson().toJson(jsonArray));
+            write(CF4M.INSTANCE.getConfig().getByInstance(this).getPath(), new Gson().toJson(jsonArray));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -323,7 +323,7 @@ public class ExampleConfig implements IConfiguration {
 @Configuration
 public class ExampleConfig implements IConfiguration {
     @Override
-    public ICommandConfiguration command() {
+    public ICommandConfiguration getCommand() {
         return new ICommandConfiguration() {
             @Override
             public void message(String message) {
@@ -340,7 +340,7 @@ public class ExampleConfig implements IConfiguration {
 @Configuration
 public class ExampleConfig implements IConfiguration {
     @Override
-    public ICommandConfiguration command() {
+    public ICommandConfiguration getCommand() {
         return new ICommandConfiguration() {
             @Override
             public String prefix() {
@@ -357,7 +357,7 @@ public class ExampleConfig implements IConfiguration {
 @Configuration
 public class ExampleConfig implements IConfiguration {
     @Override
-    public IModuleConfiguration module() {
+    public IModuleConfiguration getModule() {
         return new IModuleConfiguration() {
             @Override
             public void enable(Object module) {
@@ -379,7 +379,7 @@ public class ExampleConfig implements IConfiguration {
 @Configuration
 public class ExampleConfig implements IConfiguration {
     @Override
-    public IConfigConfiguration config() {
+    public IConfigConfiguration getConfig() {
         return new IConfigConfiguration() {
             @Override
             public boolean enable() {
