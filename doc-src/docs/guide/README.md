@@ -360,12 +360,12 @@ public class ExampleConfig implements IConfiguration {
     public IModuleConfiguration getModule() {
         return new IModuleConfiguration() {
             @Override
-            public void enable(Object module) {
+            public void enable(ModuleProvider module) {
 
             }
 
             @Override
-            public void disable(Object module) {
+            public void disable(ModuleProvider module) {
 
             }
         };
