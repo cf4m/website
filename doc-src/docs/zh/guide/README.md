@@ -307,6 +307,24 @@ public class ModuleConfig {
 `@Config`注解CF4M会自动为您添加
 :::
 
+### Auto
+
+支持的类`@Module`,`@Command`,`@Config`
+
+支持的字段`所有Container`
+
+```java
+@Auto
+private ModuleContainer moduleContainer;
+```
+
+```java
+@Auto
+public class Test {
+    private ModuleContainer moduleContainer;
+}
+```
+
 ## 配置
 
 您可以配置重写`IConfiguration`接口的方法来进行配置
@@ -393,3 +411,21 @@ public class ExampleConfig implements IConfiguration {
 ::: tip
 `@Configuration`注解CF4M会自动为您添加
 :::
+
+## 注解
+
+|注解|描述|
+|-|-|
+|`@Module`|加上这个注解,这个类是`module`|
+|`@Setting`|加上这个注解,这个字段是`module`的`setting`|
+|`@Extend`|加上这个注解,这个类是`module`的扩展|
+|`@Enable`|加上这个注解,这个方法在`module`启用时被调用|
+|`@Disable`|加上这个注解,这个方法在`module`禁用时被调用|
+|`@Command`|加上这个注解,这个类是`command`|
+|`@Exec`|加上这个注解,这个方法是可以执行的`command`|
+|`@Param`|加上这个注解,这个方法的参数是`command`的参数名称|
+|`@Config`|加上这个注解,这个类是`config`|
+|`@Load`|加上这个注解,这个方法会在`config`加载时调用|
+|`@Save`|加上这个注解,这个方法会在`config`保存时调用|
+|`@Auto`|加上这个注解,这个类\方法会自己赋值|
+|`@Configuration`|加上这个注解,这个类是 `configuration`|

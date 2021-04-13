@@ -307,9 +307,27 @@ public class ModuleConfig {
 `@Config` annotation CF4M will automatically add for you
 :::
 
-## Configuration
+### Auto
+
+Support class `@Module`,`@Command`,`@Config`
+
+Support field`AllContainer`
+
+```java
+@Auto
+private ModuleContainer moduleContainer;
+```
+
+```java
+@Auto
+public class Test {
+    private ModuleContainer moduleContainer;
+}
+```
 
 You can configure the method that overrides the `IConfiguration` interface for configuration 
+
+## Configuration
 
 ```java
 @Configuration
@@ -393,3 +411,21 @@ public class ExampleConfig implements IConfiguration {
 ::: tip
 `@Configuration` annotation CF4M will automatically add for you
 :::
+
+## Annotation
+
+|Annotation|Description|
+|-|-|
+|`@Module`|Add this annotation to the class to that this class is a `module`|
+|`@Setting`|Add this annotation to the field to that this field is `module` setting|
+|`@Extend`|Add this annotation to the class to that this class is a module extend|
+|`@Enable`|Add this annotation to the method to that this class will be invoke at `module` enable|
+|`@Disable`|Add this annotation to the method to that this class will be invoke at `module` disable|
+|`@Command`|Add this annotation to the class to that this class is a `command`|
+|`@Exec`|Add this annotation to the method to that this method is a executable `command`|
+|`@Param`|Add this annotation to the method param to that this `command` param name|
+|`@Config`|Add this annotation to the class to that this class is a `config`|
+|`@Load`|Add this annotation to the method to that this method will be invoke at `config` load|
+|`@Save`|Add this annotation to the method to that this method will be invoke at `config` save|
+|`@Auto`|Add this annotation to the class/field to the field of this class will be auto put|
+|`@Configuration`|Add this annotation to the class to that this class is a `configuration`|
