@@ -47,10 +47,10 @@ Use `Run` in game Run.
 
 ```java
 public class Events {
-    public static class UpdateEvent extends Listener {
+    public static class UpdateEvent {
     }
 
-    public static class Render2DEvent extends Listener {
+    public static class Render2DEvent {
     }
 }
 ```
