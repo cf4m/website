@@ -9,9 +9,9 @@ features:
 - title: 简单
   details: 不用写Event、Module和Setting等等.
 - title: 小
-  details: 小于40KB.
+  details: 小于62KB.
 - title: 轻量级
-  details: 仅用了Guava库(Minecraft自带.
+  details: 未使用任何库.
 footer: Apache License 2.0 | Copyright © 2020 Enaium
 ---
 

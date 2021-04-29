@@ -62,7 +62,7 @@ Must be in the same package as the main class
 ### Module
 
 ::: warning
-You must use `CF4M.INSTANCE.getModule().onKey(key);` to use keyboard
+You must use `CF4M.MODULE.onKey(key);` to use keyboard
 :::
 
 
@@ -123,7 +123,7 @@ public class ModuleExtend {
 
     @Enable
     public void enable() {
-        moduleExtend = CF4M.INSTANCE.getModule().getByInstance(this).getExtend();
+        moduleExtend = CF4M.MODULE.getByInstance(this).getExtend();
         moduleExtend.tag = "tag1";
         moduleExtend.age = 1;
         moduleExtend.fun = () -> System.out.println("FUN1");
@@ -224,7 +224,7 @@ public class IntegerSetting {
 ### Command
 
 ::: warning
-You need to use `CF4M.INSTANCE.getCommand().execCommand(message)` in the `sendChatMessage` method of the game
+You need to use `CF4M.COMMAND.execCommand(message)` in the `sendChatMessage` method of the game
 :::
 
 prefix: `
@@ -234,7 +234,7 @@ prefix: `
 public class EnableCommand {
     @Exec
     private void exec(@Param("module") String name) {
-        ModuleProvider module = CF4M.INSTANCE.getModule().getByName(name);
+        ModuleProvider module = CF4M.MODULE.getByName(name);
 
         if (module == null) {
             CF4M.configuration.command().message("The module with the name " + name + " does not exist.");
@@ -257,10 +257,10 @@ public class EnableCommand {
 public class ModuleConfig {
     @Load
     public void load() {
-        for (ModuleProvider module : CF4M.INSTANCE.getModule().getAll()) {
+        for (ModuleProvider module : CF4M.MODULE.getAll()) {
             JsonArray jsonArray = new JsonArray();
             try {
-                jsonArray = new Gson().fromJson(read(CF4M.INSTANCE.getConfig().getByInstance(this).getPath()), JsonArray.class);
+                jsonArray = new Gson().fromJson(read(CF4M.CONFIG.getByInstance(this).getPath()), JsonArray.class);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -279,7 +279,7 @@ public class ModuleConfig {
     @Save
     public void save() {
         JsonArray jsonArray = new JsonArray();
-        for (ModuleProvider module : CF4M.INSTANCE.getModule().getAll()) {
+        for (ModuleProvider module : CF4M.MODULE.getAll()) {
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("name", module.getName());
             jsonObject.addProperty("enable", module.getEnable());
@@ -287,7 +287,7 @@ public class ModuleConfig {
             jsonArray.add(jsonObject);
         }
         try {
-            write(CF4M.INSTANCE.getConfig().getByInstance(this).getPath(), new Gson().toJson(jsonArray));
+            write(CF4M.CONFIG.getByInstance(this).getPath(), new Gson().toJson(jsonArray));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -307,19 +307,17 @@ public class ModuleConfig {
 `@Config` annotation CF4M will automatically add for you
 :::
 
-### Auto
-
-Support class `@Module`,`@Command`,`@Config`
+### Autowired
 
 Support field`AllContainer`
 
 ```java
-@Auto
+@Autowired
 private ModuleContainer moduleContainer;
 ```
 
 ```java
-@Auto
+@Autowired
 public class Test {
     private ModuleContainer moduleContainer;
 }
@@ -408,9 +406,40 @@ public class ExampleConfig implements IConfiguration {
 }
 ```
 
+You can also use configuration files `cf4m.configuration.properties`进行配置
+
+```properties
+cf4m.command.prefix=-
+cf4m.command.message=cn.enaium.cf4m.example.utils.ChatUtil:message
+cf4m.config.enable=false
+```
+
 ::: tip
 `@Configuration` annotation CF4M will automatically add for you
 :::
+
+## Plugin
+
+CF4M also provides plugin support
+
+```java
+public class PluginExample implements PluginInitialize {
+    @Override
+    public void initialize(Plugin plugin) {
+        
+    }
+}
+```
+
+Configuration file `cf4m.plugin.properties`
+
+```properties
+plugin=org.cf4m.plugin.PluginExample
+name=CF4M-Plugin-Example
+description=a plugin for cf4m
+version=1.0
+author=Enaium
+```
 
 ## Annotation
 
@@ -427,5 +456,5 @@ public class ExampleConfig implements IConfiguration {
 |`@Config`|Add this annotation to the class to that this class is a `config`|
 |`@Load`|Add this annotation to the method to that this method will be invoke at `config` load|
 |`@Save`|Add this annotation to the method to that this method will be invoke at `config` save|
-|`@Auto`|Add this annotation to the class/field to the field of this class will be auto put|
+|`@Autowired`|Add this annotation to the class/field to the field of this class will be auto put|
 |`@Configuration`|Add this annotation to the class to that this class is a `configuration`|

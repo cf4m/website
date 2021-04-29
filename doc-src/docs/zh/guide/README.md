@@ -62,7 +62,7 @@ public class Events {
 ### Module
 
 ::: warning
-您必须使用`CF4M.INSTANCE.getModule().onKey(key);` 才可以使用快捷键
+您必须使用`CF4M.MODULE.onKey(key);` 才可以使用快捷键
 :::
 
 
@@ -123,7 +123,7 @@ public class ModuleExtend {
 
     @Enable
     public void enable() {
-        moduleExtend = CF4M.INSTANCE.getModule().getByInstance(this).getExtend();
+        moduleExtend = CF4M.MODULE.getByInstance(this).getExtend();
         moduleExtend.tag = "tag1";
         moduleExtend.age = 1;
         moduleExtend.fun = () -> System.out.println("FUN1");
@@ -224,7 +224,7 @@ public class IntegerSetting {
 ### Command
 
 ::: warning
-您需要在游戏的`sendChatMessage`方法下使用`CF4M.INSTANCE.getCommand().execCommand(message)`
+您需要在游戏的`sendChatMessage`方法下使用`CF4M.COMMAND.execCommand(message)`
 :::
 
 prefix: `
@@ -234,7 +234,7 @@ prefix: `
 public class EnableCommand {
     @Exec
     private void exec(@Param("module") String name) {
-        ModuleProvider module = CF4M.INSTANCE.getModule().getByName(name);
+        ModuleProvider module = CF4M.MODULE.getByName(name);
 
         if (module == null) {
             CF4M.configuration.command().message("The module with the name " + name + " does not exist.");
@@ -257,10 +257,10 @@ public class EnableCommand {
 public class ModuleConfig {
     @Load
     public void load() {
-        for (ModuleProvider module : CF4M.INSTANCE.getModule().getAll()) {
+        for (ModuleProvider module : CF4M.MODULE.getAll()) {
             JsonArray jsonArray = new JsonArray();
             try {
-                jsonArray = new Gson().fromJson(read(CF4M.INSTANCE.getConfig().getByInstance(this).getPath()), JsonArray.class);
+                jsonArray = new Gson().fromJson(read(CF4M.CONFIG.getByInstance(this).getPath()), JsonArray.class);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -279,7 +279,7 @@ public class ModuleConfig {
     @Save
     public void save() {
         JsonArray jsonArray = new JsonArray();
-        for (ModuleProvider module : CF4M.INSTANCE.getModule().getAll()) {
+        for (ModuleProvider module : CF4M.MODULE.getAll()) {
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("name", module.getName());
             jsonObject.addProperty("enable", module.getEnable());
@@ -287,7 +287,7 @@ public class ModuleConfig {
             jsonArray.add(jsonObject);
         }
         try {
-            write(CF4M.INSTANCE.getConfig().getByInstance(this).getPath(), new Gson().toJson(jsonArray));
+            write(CF4M.CONFIG.getByInstance(this).getPath(), new Gson().toJson(jsonArray));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -307,19 +307,17 @@ public class ModuleConfig {
 `@Config`注解CF4M会自动为您添加
 :::
 
-### Auto
-
-支持的类`@Module`,`@Command`,`@Config`
+### Autowired
 
 支持的字段`所有Container`
 
 ```java
-@Auto
+@Autowired
 private ModuleContainer moduleContainer;
 ```
 
 ```java
-@Auto
+@Autowired
 public class Test {
     private ModuleContainer moduleContainer;
 }
@@ -408,9 +406,40 @@ public class ExampleConfig implements IConfiguration {
 }
 ```
 
+您还可以使用配置文件`cf4m.configuration.properties`进行配置
+
+```properties
+cf4m.command.prefix=-
+cf4m.command.message=cn.enaium.cf4m.example.utils.ChatUtil:message
+cf4m.config.enable=false
+```
+
 ::: tip
 `@Configuration`注解CF4M会自动为您添加
 :::
+
+## 插件
+
+CF4M还提供了插件的支持
+
+```java
+public class PluginExample implements PluginInitialize {
+    @Override
+    public void initialize(Plugin plugin) {
+
+    }
+}
+```
+
+配置文件 `cf4m.plugin.properties`
+
+```properties
+plugin=org.cf4m.plugin.PluginExample
+name=CF4M-Plugin-Example
+description=a plugin for cf4m
+version=1.0
+author=Enaium
+```
 
 ## 注解
 
@@ -427,5 +456,5 @@ public class ExampleConfig implements IConfiguration {
 |`@Config`|加上这个注解,这个类是`config`|
 |`@Load`|加上这个注解,这个方法会在`config`加载时调用|
 |`@Save`|加上这个注解,这个方法会在`config`保存时调用|
-|`@Auto`|加上这个注解,这个类\方法会自己赋值|
+|`@Autowired`|加上这个注解,这个类\方法会自己赋值|
 |`@Configuration`|加上这个注解,这个类是 `configuration`|

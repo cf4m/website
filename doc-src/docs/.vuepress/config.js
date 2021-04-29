@@ -15,8 +15,10 @@ module.exports = {
         }
     },
     themeConfig: {
+        logo: 'hero.png',
         sidebar: 'auto',
-        repo: 'cf4m/website',
+        repo: 'cf4m/cf4m',
+        docsRepo: 'cf4m/website',
         docsDir: 'doc-src/docs',
         editLinks: true,
 		smoothScroll: true,
