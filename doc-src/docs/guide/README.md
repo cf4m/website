@@ -69,7 +69,7 @@ You must use `CF4M.MODULE.onKey(key);` to use keyboard
 Create the `Sprint` class.
 
 ```java
-@Module(value = "Sprint", key = Keyboard.KEY_V, category = "MOVEMENT")
+@Module(value = "Sprint", key = Keyboard.KEY_V, type = "MOVEMENT")
 //@Module("Sprint")
 public class Sprint {
     @Event
@@ -141,7 +141,7 @@ public class ModuleExtend {
 ### Setting
 
 ```java
-@Module(value = "Sprint", key = Keyboard.KEY_V, category = Category.MOVEMENT)
+@Module(value = "Sprint", key = Keyboard.KEY_V, type = Category.MOVEMENT)
 public class Sprint {
 
     @Setting(value = "test1", description = "description")
@@ -367,28 +367,6 @@ public class ExampleConfig implements IConfiguration {
 }
 ```
 
-### enable and disable
-
-```java
-@Configuration
-public class ExampleConfig implements IConfiguration {
-    @Override
-    public IModuleConfiguration getModule() {
-        return new IModuleConfiguration() {
-            @Override
-            public void enable(ModuleProvider module) {
-
-            }
-
-            @Override
-            public void disable(ModuleProvider module) {
-
-            }
-        };
-    }
-}
-```
-
 ### config
 
 ```java
@@ -406,7 +384,7 @@ public class ExampleConfig implements IConfiguration {
 }
 ```
 
-You can also use configuration files `cf4m.configuration.properties`进行配置
+You can also use configuration files `cf4m.configuration.properties` configure 
 
 ```properties
 cf4m.command.prefix=-

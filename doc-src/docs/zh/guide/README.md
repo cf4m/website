@@ -69,7 +69,7 @@ public class Events {
 创建`Sprint`类.
 
 ```java
-@Module(value = "Sprint", key = Keyboard.KEY_V, category = "MOVEMENT")
+@Module(value = "Sprint", key = Keyboard.KEY_V, type = "MOVEMENT")
 //@Module("Sprint")
 public class Sprint {
     @Event
@@ -141,7 +141,7 @@ public class ModuleExtend {
 ### Setting
 
 ```java
-@Module(value = "Sprint", key = Keyboard.KEY_V, category = Category.MOVEMENT)
+@Module(value = "Sprint", key = Keyboard.KEY_V, type = Category.MOVEMENT)
 public class Sprint {
 
     @Setting(value = "test1", description = "description")
@@ -361,28 +361,6 @@ public class ExampleConfig implements IConfiguration {
             @Override
             public String prefix() {
                 return "-";
-            }
-        };
-    }
-}
-```
-
-### 启用和禁用
-
-```java
-@Configuration
-public class ExampleConfig implements IConfiguration {
-    @Override
-    public IModuleConfiguration getModule() {
-        return new IModuleConfiguration() {
-            @Override
-            public void enable(ModuleProvider module) {
-
-            }
-
-            @Override
-            public void disable(ModuleProvider module) {
-
             }
         };
     }
