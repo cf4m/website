@@ -323,63 +323,37 @@ public class Test {
 }
 ```
 
-You can configure the method that overrides the `IConfiguration` interface for configuration 
+### Component
+
+Instance can be inject by `Autowried`
+
+```java
+@Component
+public class UtilTest {
+    public void util() {
+        System.out.println("Util test");
+    }
+}
+```
+
+### Bean
+
+```java
+@Bean
+public UtilBean utilBean() {
+    return new UtilBean();
+}
+```
 
 ## Configuration
 
-```java
-@Configuration
-public class ExampleConfig implements IConfiguration {
-}
-```
-
-### message
+Edit prefix
 
 ```java
-@Configuration
-public class ExampleConfig implements IConfiguration {
+public class Message extends CommandConfiguration {
     @Override
-    public ICommandConfiguration getCommand() {
-        return new ICommandConfiguration() {
-            @Override
-            public void message(String message) {
-                Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(message));
-            }
-        };
-    }
-}
-```
-
-### prefix
-
-```java
-@Configuration
-public class ExampleConfig implements IConfiguration {
-    @Override
-    public ICommandConfiguration getCommand() {
-        return new ICommandConfiguration() {
-            @Override
-            public String prefix() {
-                return "-";
-            }
-        };
-    }
-}
-```
-
-### config
-
-```java
-@Configuration
-public class ExampleConfig implements IConfiguration {
-    @Override
-    public IConfigConfiguration getConfig() {
-        return new IConfigConfiguration() {
-            @Override
-            public boolean enable() {
-                return false;
-            }
-        };
+    public String getPrefix() {
+        return "-";
     }
 }
 ```
@@ -390,6 +364,25 @@ You can also use configuration files `cf4m.configuration.properties` configure
 cf4m.command.prefix=-
 cf4m.command.message=cn.enaium.cf4m.example.utils.ChatUtil:message
 cf4m.config.enable=false
+```
+
+### Custom Configuration
+
+```java
+@Configuration("test")
+public class ConfigurationTest {
+    //@Value("value")
+    @Value
+    private String value;
+
+    public String getValue() {
+        return value;
+    }
+}
+```
+
+```properties
+test.value=ConfigurationTest
 ```
 
 ::: tip

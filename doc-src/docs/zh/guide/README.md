@@ -323,63 +323,37 @@ public class Test {
 }
 ```
 
+### 成分
+
+实例化可以被`Autowried`注入
+
+```java
+@Component
+public class UtilTest {
+    public void util() {
+        System.out.println("Util test");
+    }
+}
+```
+
+### Bean
+
+```java
+@Bean
+public UtilBean utilBean() {
+    return new UtilBean();
+}
+```
+
 ## 配置
 
-您可以配置重写`IConfiguration`接口的方法来进行配置
+更新前缀
 
 ```java
-@Configuration
-public class ExampleConfig implements IConfiguration {
-}
-```
-
-### 消息
-
-```java
-@Configuration
-public class ExampleConfig implements IConfiguration {
+public class Message extends CommandConfiguration {
     @Override
-    public ICommandConfiguration getCommand() {
-        return new ICommandConfiguration() {
-            @Override
-            public void message(String message) {
-                Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(message));
-            }
-        };
-    }
-}
-```
-
-### 前缀
-
-```java
-@Configuration
-public class ExampleConfig implements IConfiguration {
-    @Override
-    public ICommandConfiguration getCommand() {
-        return new ICommandConfiguration() {
-            @Override
-            public String prefix() {
-                return "-";
-            }
-        };
-    }
-}
-```
-
-### 配置
-
-```java
-@Configuration
-public class ExampleConfig implements IConfiguration {
-    @Override
-    public IConfigConfiguration getConfig() {
-        return new IConfigConfiguration() {
-            @Override
-            public boolean enable() {
-                return false;
-            }
-        };
+    public String getPrefix() {
+        return "-";
     }
 }
 ```
@@ -390,6 +364,25 @@ public class ExampleConfig implements IConfiguration {
 cf4m.command.prefix=-
 cf4m.command.message=cn.enaium.cf4m.example.utils.ChatUtil:message
 cf4m.config.enable=false
+```
+
+### 自定义配置
+
+```java
+@Configuration("test")
+public class ConfigurationTest {
+    //@Value("value")
+    @Value
+    private String value;
+
+    public String getValue() {
+        return value;
+    }
+}
+```
+
+```properties
+test.value=ConfigurationTest
 ```
 
 ::: tip
