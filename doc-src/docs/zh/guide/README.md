@@ -18,10 +18,6 @@ sidebar: auto
 
 [![Releases](https://img.shields.io/github/v/release/cf4m/cf4m?style=flat-square)](https://github.com/cf4m/cf4m/releases)
 
-JDK较高版本
-
-虚拟机参数`--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/sun.reflect.annotation=ALL-UNNAMED`
-
 ## 使用
 
 ### Instance
