@@ -6,5 +6,9 @@ module.exports = [
     {
         text: '指南',
         link: '/zh/guide/'
+    },
+    {
+        text: "Java Doc",
+        link: "/docs/"
     }
 ]

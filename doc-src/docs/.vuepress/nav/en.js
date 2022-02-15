@@ -6,5 +6,9 @@ module.exports = [
     {
         text: 'Guide',
         link: '/guide/'
+    },
+    {
+        text: "Java Doc",
+        link: "/docs/"
     }
 ]

@@ -1,0 +1,13 @@
+cn.enaium.cf4m
+cn.enaium.cf4m.annotation
+cn.enaium.cf4m.annotation.command
+cn.enaium.cf4m.annotation.config
+cn.enaium.cf4m.annotation.configuration
+cn.enaium.cf4m.annotation.module
+cn.enaium.cf4m.configuration
+cn.enaium.cf4m.container
+cn.enaium.cf4m.factory
+cn.enaium.cf4m.plugin
+cn.enaium.cf4m.provider
+cn.enaium.cf4m.service
+cn.enaium.cf4m.struct
