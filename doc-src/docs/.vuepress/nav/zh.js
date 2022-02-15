@@ -9,6 +9,6 @@ module.exports = [
     },
     {
         text: "Java Doc",
-        link: "/docs/"
+        link: "/zh/docs/"
     }
 ]
